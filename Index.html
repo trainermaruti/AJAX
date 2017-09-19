@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ASP.Net REST</title>
+    <link href="StyleSheet1.css" rel="stylesheet" />
+    <script src="jquery-1.10.2.js"></script>
+    <script src="MicrosoftAjax.debug.js"></script>
+    <script src="MicrosoftAjaxTemplates.debug.js"></script>
+
+    <script type="text/javascript">
+        $(function getallemp() {
+            jQuery.support.cors = true;
+
+            $.getJSON("http://localhost:39819/Service.svc/Employee", function (data) {
+                var tableView = Sys.create.dataView("#allemp",
+                { initialSelectedIndex: 0, selectedItemClass: "selected" }
+                );
+                tableView.set_data(data);
+                var detailsView = Sys.create.dataView("#details");
+                Sys.bind(detailsView, "data", tableView, "selectedData");
+            });
+        });
+
+    </script>
+</head>
+<body xmlns:sys="javaScript:Sys">
+    <div>
+        <br />
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody id="allemp" class="sys-template">
+                <tr sys:command="select">
+                    <td>{{ Id }}</td>
+                    <td>{binding Name }</td>
+                    <td>{{ Age }}</td>
+                </tr>
+            </tbody>
+        </table>      
+    </div>   
+</body>
+</html>
+
